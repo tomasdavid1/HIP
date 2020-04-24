@@ -11,18 +11,22 @@ export interface ICustomer {
     latitude: number;
     longitude: number;
     orderCount?: number;
-    orders?: IOrder[];
     ordersTotal?: number;
 }
+
+export interface ICountry {
+    id: number;
+    name: string;
+    GDP: number;
+    GPDPerCapita: number;
+    giniIndex: number;
+    PPPIndex: number;
+    // Maybe add array of Interfaces field later
+}
+
 
 export interface IState {
     abbreviation: string;
     name: string;
 }
 
-export interface IOrder {
-    product: string;
-    price: number;
-    quantity: number;
-    orderTotal?: number;
-}

@@ -2,31 +2,48 @@ var db = require('../lib/accessDB')
   , util = require('util');
 
 // GET
+//
+// exports.customer = function (req, res) {
+//     console.log('*** customer');
+//
+//     db.getCustomer(req.params.id, function (err, customer) {
+//         if (err) {
+//             console.log('*** customer err');
+//             res.json({
+//                 customer: customer
+//             });
+//         } else {
+//             console.log('*** customer ok');
+//             res.json(customer);
+//         }
+//     });
+// };
 
-exports.customer = function (req, res) {
-    console.log('*** customer');
 
-    db.getCustomer(req.params.id, function (err, customer) {
+exports.country = function (req, res) {
+    console.log('retrieving country ');
+    db.getCountry(req.params.id, function (err, customer) {
         if (err) {
-            console.log('*** customer err');
+            console.log(country ,'err');
             res.json({
-                customer: customer
+                country: country
             });
         } else {
             console.log('*** customer ok');
-            res.json(customer);
+            res.json(country);
         }
     });
 };
 
-exports.addCustomer = function (req, res) {
+
+exports.addCountry = function (req, res) {
     console.log('*** addCustomer');
     db.getState(req.body.stateId, function (err, state) {
         if (err) {
             console.log('*** getState err');
             res.json({ 'status': false });
         } else {
-            db.insertCustomer(req.body, state, function (err) {
+            db.insertCountry(req.body, state, function (err) {
                 if (err) {
                     console.log('*** addCustomer err');
                     res.json(false);
@@ -39,7 +56,7 @@ exports.addCustomer = function (req, res) {
     });
 };
 
-exports.editCustomer = function (req, res) {
+exports.editCountry = function (req, res) {
     console.log('*** editCustomer');
     console.log('*** req.body');
     console.log(req.body);
@@ -53,12 +70,12 @@ exports.editCustomer = function (req, res) {
             console.log('*** getState err');
             res.json({ 'status': false });
         } else {
-            db.editCustomer(req.params.id, req.body, state, function (err) {
+            db.editCountry(req.params.id, req.body, state, function (err) {
                 if (err) {
-                    console.log('*** editCustomer err' + util.inspect(err));
+                    console.log('*** editCountry err' + util.inspect(err));
                     res.json({ 'status': false });
                 } else {
-                    console.log('*** editCustomer ok');
+                    console.log('*** editCountry ok');
                     res.json({ 'status': true });
                 }
             });
@@ -66,19 +83,79 @@ exports.editCustomer = function (req, res) {
     });
 };
 
-exports.deleteCustomer = function (req, res) {
+exports.deleteCountry = function (req, res) {
     console.log('*** deleteCustomer');
 
-    db.deleteCustomer(req.params.id, function (err) {
+    db.deleteCountry(req.params.id, function (err) {
         if (err) {
-            console.log('*** deleteCustomer err');
+            console.log('*** deleteCountry err');
             res.json({ 'status': false });
         } else {
-            console.log('*** deleteCustomer ok');
+            console.log('*** deleteCountry ok');
             res.json({ 'status': true });
         }
     });
 };
+// exports.addCustomer = function (req, res) {
+//     console.log('*** addCustomer');
+//     db.getState(req.body.stateId, function (err, state) {
+//         if (err) {
+//             console.log('*** getState err');
+//             res.json({ 'status': false });
+//         } else {
+//             db.insertCustomer(req.body, state, function (err) {
+//                 if (err) {
+//                     console.log('*** addCustomer err');
+//                     res.json(false);
+//                 } else {
+//                     console.log('*** addCustomer ok');
+//                     res.json(req.body);
+//                 }
+//             });
+//         }
+//     });
+// };
+//
+// exports.editCustomer = function (req, res) {
+//     console.log('*** editCustomer');
+//     console.log('*** req.body');
+//     console.log(req.body);
+//
+//     if (!req.body || !req.body.stateId) {
+//         throw new Error('Customer and associated stateId required');
+//     }
+//
+//     db.getState(req.body.stateId, function (err, state) {
+//         if (err) {
+//             console.log('*** getState err');
+//             res.json({ 'status': false });
+//         } else {
+//             db.editCustomer(req.params.id, req.body, state, function (err) {
+//                 if (err) {
+//                     console.log('*** editCustomer err' + util.inspect(err));
+//                     res.json({ 'status': false });
+//                 } else {
+//                     console.log('*** editCustomer ok');
+//                     res.json({ 'status': true });
+//                 }
+//             });
+//         }
+//     });
+// };
+
+// exports.deleteCustomer = function (req, res) {
+//     console.log('*** deleteCustomer');
+//
+//     db.deleteCustomer(req.params.id, function (err) {
+//         if (err) {
+//             console.log('*** deleteCustomer err');
+//             res.json({ 'status': false });
+//         } else {
+//             console.log('*** deleteCustomer ok');
+//             res.json({ 'status': true });
+//         }
+//     });
+// };
 
 // GET
 exports.states = function (req, res) {
@@ -96,35 +173,56 @@ exports.states = function (req, res) {
     });
 };
 
-exports.customers = function (req, res) {
-    console.log('*** customers');
+exports.countries = function (req, res) {
+    console.log('*** countries');
     var topVal = req.query.$top,
         skipVal = req.query.$skip,
         top = (isNaN(topVal)) ? 10 : parseInt(req.query.$top, 10),
         skip = (isNaN(skipVal)) ? 0 : parseInt(req.query.$skip, 10);
 
-    db.getCustomers(skip, top, function (err, data) {
+    db.getCountries(skip, top, function (err, data) {
         res.setHeader('X-InlineCount', data.count);
         if (err) {
-            console.log('*** customers err');
+            console.log('*** countries err');
             res.json({
-                customers: data.customers
+                countries: data.countries
             });
         } else {
-            console.log('*** customers ok');
-            res.json(data.customers);
+
+            console.log('*** countries ok');
+            res.json(data.countries);
         }
     });
 };
+// exports.countries = function (req, res) {
+//     console.log('*** countries');
+//     var topVal = req.query.$top,
+//         skipVal = req.query.$skip,
+//         top = (isNaN(topVal)) ? 10 : parseInt(req.query.$top, 10),
+//         skip = (isNaN(skipVal)) ? 0 : parseInt(req.query.$skip, 10);
+//
+//     db.getCustomers(skip, top, function (err, data) {
+//         res.setHeader('X-InlineCount', data.count);
+//         if (err) {
+//             console.log('*** countries err');
+//             res.json({
+//                 countries: data.countries
+//             });
+//         } else {
+//             console.log('*** countries ok');
+//             res.json(data.countries);
+//         }
+//     });
+// };
 
-exports.customersSummary = function (req, res) {
+exports.countriesSummary = function (req, res) {
     console.log('*** customersSummary');
     var topVal = req.query.$top,
         skipVal = req.query.$skip,
         top = (isNaN(topVal)) ? 10 : parseInt(req.query.$top, 10),
         skip = (isNaN(skipVal)) ? 0 : parseInt(req.query.$skip, 10);
 
-    db.getCustomersSummary(skip, top, function (err, summary) {
+    db.getCountriesSummary(skip, top, function (err, summary) {
         res.setHeader('X-InlineCount', summary.count);
         if (err) {
             console.log('*** customersSummary err');

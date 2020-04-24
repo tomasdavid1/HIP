@@ -4,8 +4,7 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { Observable } from 'rxjs/Rx';
-
-import { ICustomer } from '../interfaces';
+import { ICountry } from '../interfaces';
 
 @Injectable()
 export class DataService {
@@ -14,14 +13,14 @@ export class DataService {
     
     constructor(private http: Http) { }
     
-    getCustomersSummary() : Observable<ICustomer[]> {
-        return this.http.get(this.url + 'customers')
+    getCountriesSummary() : Observable<ICountry[]> {
+        return this.http.get(this.url + 'countries')
                    .map((resp: Response) => resp.json())
                    .catch(this.handleError);
     }
     
-    updateCustomer(customer: ICustomer) {       
-      return this.http.put(this.url + 'putCustomer/' + customer.id, customer)
+    updateCountry(country: ICountry) {
+      return this.http.put(this.url + 'putCustomer/' + country.id, country)
                  .map((response: Response) => response.json())
                  .catch(this.handleError);
     }
@@ -32,3 +31,4 @@ export class DataService {
     }
     
 }
+

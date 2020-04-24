@@ -4,7 +4,7 @@ var mongoose = require('mongoose')
   
 var SettingsSchema = new Schema({
   collectionName : {
-    type : String, required: true, trim: true, default: 'customers'
+    type : String, required: true, trim: true, default: 'countries'
   },
   nextSeqNumber: {
     type: Number, default: 1

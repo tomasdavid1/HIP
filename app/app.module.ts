@@ -4,13 +4,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule} from '@angular/http';
 
 import { AppComponent }  from './app.component';
-import { CustomersComponent } from './customers/customers.component';
+import { CountriesComponents } from './countries/countries.component';
 import { app_routing } from './app.routing';
 import { DataService } from './shared/services/data.service';
 
 @NgModule({
   imports:      [ BrowserModule, FormsModule, ReactiveFormsModule, HttpModule, app_routing ],
-  declarations: [ AppComponent, CustomersComponent ],
+  declarations: [ AppComponent, CountriesComponents ],
   providers:    [ DataService ],
   bootstrap:    [ AppComponent ]
 })

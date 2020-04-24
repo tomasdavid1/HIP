@@ -1,4 +1,4 @@
-<h1>Customers</h1>
+<h1>Countries</h1>
 <br />
 
 <!-- Added navbar to switch between list view shown in video and new edit view -->
@@ -18,27 +18,26 @@
 </div>
 
 <ul [hidden]="editViewEnabled">
-    <li *ngFor="let customer of customers">
-        {{ customer.firstName  }} {{ customer.lastName }}
+    <li *ngFor="let country of countries">
+        {{ country.name}}
     </li>
 </ul>
 
 <!-- Added editable list to demonstrate doing an HTTP PUT -->
 <div [hidden]="!editViewEnabled">
-    <div class="container" *ngFor="let customer of customers">
-        <div class="row" [hidden]="editId===customer.id">
+    <div class="container" *ngFor="let country of countrys">
+        <div class="row" [hidden]="editId===country.id">
             <div class="col-md-4">
-            {{ customer.firstName  }} {{ customer.lastName }}
+            {{ country.name  }}
             </div>
             <div class="col-md-8">
                 <span class="btn btn-success pull-left" 
-                    (click)="editId=customer.id">Edit</span>
+                    (click)="editId=country.id">Edit</span>
             </div>
         </div>
-        <div [hidden]="editId!==customer.id">
-            First: <input [(ngModel)]="customer.firstName" />&nbsp;
-            Last: <input [(ngModel)]="customer.lastName" />
-            <span class="btn btn-success" (click)="save(customer)">Save</span>&nbsp;
+        <div [hidden]="editId!==country.id">
+            Name: <input [(ngModel)]="country.name" />&nbsp;
+            <span class="btn btn-success" (click)="save(country)">Save</span>&nbsp;
             <span class="btn btn-default" (click)="editId=0">Cancel</span>
         </div>
         <br />

@@ -38,7 +38,7 @@ process.on('uncaughtException', function (err) {
 DB.startup(function() {
     //if (process.env.NODE_ENV === 'development') {
         seeder.init();
-    //} 
+    //}
 });
 
 // Routes
@@ -47,14 +47,14 @@ app.get('/', routes.index);
 // JSON API
 var baseUrl = '/api/dataservice/';
 
-app.get(baseUrl + 'customers', api.customers);
-app.get(baseUrl + 'customer/:id', api.customer);
-app.get(baseUrl + 'customersSummary', api.customersSummary);
-app.get(baseUrl + 'customerById/:id', api.customer);
+app.get(baseUrl + 'countries', api.countries);
+app.get(baseUrl + 'country/:id', api.countries);
+app.get(baseUrl + 'countriessSummary', api.countriesSummary);
+app.get(baseUrl + 'countryById/:id', api.country);
 
-app.post(baseUrl + 'postCustomer', api.addCustomer);
-app.put(baseUrl + 'putCustomer/:id', api.editCustomer);
-app.delete(baseUrl + 'deleteCustomer/:id', api.deleteCustomer);
+app.post(baseUrl + 'postCountry', api.addCountry);
+app.put(baseUrl + 'putCountry/:id', api.editCountry);
+app.delete(baseUrl + 'deleteCountry/:id', api.editCountry);
 
 app.get(baseUrl + 'states', api.states);
 
